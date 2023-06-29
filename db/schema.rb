@@ -89,7 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_160922) do
     t.datetime "remember_created_at"
     t.string "first_name"
     t.string "last_name"
-    t.string "celphone"
+    t.string "cellphone"
     t.bigint "address_id"
     t.date "birthdate"
     t.string "pronouns"

@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  belongs_to :adresse, optional: true
+  belongs_to :address, optional: true
   has_many :user_roles
   has_many :roles, through: :user_roles
 
