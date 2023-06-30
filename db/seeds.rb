@@ -76,40 +76,40 @@ courses_titles = [
   "CPR and First Aid"
 ]
 
-# Role.create!(role: 'Student')
-# Role.create!(role: 'Teacher')
-# Role.create!(role: 'Admin')
+Role.create!(role: 'Student')
+Role.create!(role: 'Teacher')
+Role.create!(role: 'Admin')
 
-# 20.times do
-#   Address.create(
-#     street: Faker::Address.street_address,
-#     city: Faker::Address.city,
-#     state: Faker::Address.state,
-#     country: Faker::Address.country,
-#     zipcode: Faker::Address.zip_code
-#   )
-# end
+20.times do
+  Address.create(
+    street: Faker::Address.street_address,
+    city: Faker::Address.city,
+    state: Faker::Address.state,
+    country: Faker::Address.country,
+    zipcode: Faker::Address.zip_code
+  )
+end
 
-# 20.times do |i|
-#   birthdate = Faker::Date.birthday(min_age: 18)
-#   user = User.create(
-#     email: Faker::Internet.email,
-#     password: 'password',
-#     first_name: Faker::Name.first_name,
-#     last_name: Faker::Name.last_name,
-#     cellphone: Faker::PhoneNumber.phone_number,
-#     address: Address.find(i + 1),
-#     birthdate: birthdate,
-#     pronouns: pronouns.sample
-#   )
+20.times do |i|
+  birthdate = Faker::Date.birthday(min_age: 18)
+  user = User.create(
+    email: Faker::Internet.email,
+    password: 'password',
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    cellphone: Faker::PhoneNumber.phone_number,
+    address: Address.find(i + 1),
+    birthdate: birthdate,
+    pronouns: pronouns.sample
+  )
 
-#   # Assign roles to users
-#   if i < 10
-#     user.add_role('Student')
-#   else
-#     user.add_role('Teacher')
-#   end
-# end
+  # Assign roles to users
+  if i < 10
+    user.add_role('Student')
+  else
+    user.add_role('Teacher')
+  end
+end
 
 (11..20).each do |i|
   teacher = User.find(i)
