@@ -3,9 +3,9 @@ class CoursesController < ApplicationController
 
   # GET /courses
   def index
-    @courses = Course.all
-
-    render json: @courses
+    @courses = Course.all.includes(:user) 
+    
+    render json: @courses.to_json(include: { user: { only: [:first_name, :last_name] } })
   end
 
   # GET /courses/1
