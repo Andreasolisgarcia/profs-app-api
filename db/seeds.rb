@@ -5,11 +5,6 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-
-Role.create!(role: 'Student')
-Role.create!(role: 'Teacher')
-Role.create!(role: 'Admin')
-
 pronouns = ['she/her', 'he/him', 'they/them', 'other']
 
 courses_titles = [
@@ -81,34 +76,51 @@ courses_titles = [
   "CPR and First Aid"
 ]
 
-t.string :first_name
-t.string :last_name
-t.string :celphone
-t.belongs_to :address
-t.date :birthdate
-t.string :pronouns
-
+Role.create!(role: 'Student')
+Role.create!(role: 'Teacher')
+Role.create!(role: 'Admin')
 
 20.times do
-    Addresse.create(
-      street: Faker::Address.street_address,
-      city: Faker::Address.city,
-      state: Faker::Address.state,
-      country: Faker::Address.country,
-      postalcode: Faker::Address.postcode
-    )
-  end
+  Address.create(
+    street: Faker::Address.street_address,
+    city: Faker::Address.city,
+    state: Faker::Address.state,
+    country: Faker::Address.country,
+    zipcode: Faker::Address.zip_code
+  )
+end
 
 20.times do |i|
-    birthdate = Faker::Date.birthday(min_age: 18)
-    
-    User.create(
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      celphone: Faker::PhoneNumber.phone_number,
-      addresse: Addresse.find(i + 1),
-      birthdate: birthdate,
-      pronouns: pronouns.sample
-    )
-  end
+  birthdate = Faker::Date.birthday(min_age: 18)
+  user = User.create(
+    email: Faker::Internet.email,
+    password: 'password',
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    cellphone: Faker::PhoneNumber.phone_number,
+    address: Address.find(i + 1),
+    birthdate: birthdate,
+    pronouns: pronouns.sample
+  )
 
+  # Assign roles to users
+  if i < 10
+    user.add_role('Student')
+  else
+    user.add_role('Teacher')
+  end
+end
+
+(11..20).each do |i|
+  teacher = User.find(i)
+  Course.create!(
+    user: teacher,
+    title: courses_titles.sample,
+    description: Faker::Lorem.paragraph,
+    price: Faker::Commerce.price(range: 50..200),
+    image_url: Faker::Internet.url,
+    duration: [30, 60, 90].sample,
+    is_online: Faker::Boolean.boolean,
+    additional_cost: Faker::Commerce.price(range: 10..50)
+  )
+end
